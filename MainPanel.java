@@ -8,9 +8,15 @@ public class MainPanel extends JPanel implements ActionListener {
     final static int maxx = 600;
     final static int maxy = 600;
 
-    final static int wallThickness = 20;
-    final static int wallLeft = maxx/2-wallThickness/2;
-    final static int wallRight = maxx/2+wallThickness/2;
+    final static int wallThickness = 30;
+    final static int wallLeft = (maxx-wallThickness)/2;
+    final static int wallRight = (maxx+wallThickness)/2;
+
+    final static int doorThickness = 50;
+    final static int doorTop = (maxy-doorThickness)/2;
+    final static int doorBottom = (maxy+doorThickness)/2;
+
+    boolean isOpen = false;
 
     Timer timer;
     double deltat = .1; //  in seconds
@@ -23,22 +29,6 @@ public class MainPanel extends JPanel implements ActionListener {
         setBackground(Color.WHITE);
         setVisible(true);
 
-//        particleCount = 20;
-//        for ( int i=0; i<particleCount; i++ ){
-//            if (i%4 == 0) {
-//                particles.add(new Particle(maxx, maxy, wallThickness,true, true));
-//            }
-//            else if (i%4 == 1) {
-//                particles.add(new Particle(maxx, maxy, wallThickness,true, false));
-//            }
-//            else if (i%4 == 2) {
-//                particles.add(new Particle(maxx, maxy, wallThickness,false, true));
-//            }
-//            else{
-//                particles.add(new Particle(maxx, maxy, wallThickness,false, false));
-//            }
-//            particles.get(i).getInfo();
-//        }
         timer = new Timer((int)(1000 * deltat),this );
         timer.start();
 
@@ -61,8 +51,14 @@ public class MainPanel extends JPanel implements ActionListener {
     public void checkIntersection()
     {
         for(Particle p : particles){
-            if(wallLeft <= p.getX()+5 && p.getX() <= wallRight){
+
+            if(p.getX() + p.getDiameter() > wallLeft && p.getX() < wallRight + p.getDiameter()){
                 p.flipX();
+
+                if(doorBottom >= p.getY() + p.getDiameter() && p.getY() >= doorTop && isOpen){
+                    p.flipX();
+                    p.flipSides();
+                }
             }
         }
     }
@@ -99,26 +95,31 @@ public class MainPanel extends JPanel implements ActionListener {
         return totalTempSquared/count;
     }
 
+    public void click(){
+        isOpen = !isOpen;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if ( e.getSource()==timer ) {
-            //System.out.println("New Timer");
             moveAll();
-           // repaint();
         }
     }
 
     @Override
     public void paintComponent( Graphics g ){
         super.paintComponent(g);
-        for ( int i=0; i<particleCount; i++ ) {
-            particles.get(i).drawMe(g);
-        }
-        //particles[0].getInfo();
 
         g.setColor(Color.BLACK);
         g.fillRect( wallLeft, 0, wallThickness, maxy );
 
-        System.out.println("Paint");
+        if(isOpen == true) {
+            g.setColor(Color.WHITE);
+            g.fillRect(wallLeft, doorTop, wallThickness, doorThickness);
+        }
+
+        for ( int i=0; i<particleCount; i++ ) {
+            particles.get(i).drawMe(g);
+        }
     }
 }
