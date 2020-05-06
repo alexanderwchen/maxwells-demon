@@ -10,7 +10,7 @@ public class Particle
     private double velocitycm;
     private double velocitypx;
     private double resolution = (double) (Toolkit.getDefaultToolkit().getScreenResolution() / 2.54);
-    private int diameter;
+    final static private int diameter = 5;
     private boolean isLeft;
 
 
@@ -35,7 +35,6 @@ public class Particle
 
     public Particle(double maxx, double maxy, double wallThickness, boolean isSlow, boolean isLeft)
     {
-        diameter = 5;
         this.maxx = maxx;
         this.maxy = maxy;
 
