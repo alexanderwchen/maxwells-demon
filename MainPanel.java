@@ -12,11 +12,12 @@ public class MainPanel extends JPanel implements ActionListener {
     Particle[] particles;
 
     public MainPanel() {
-        setBorder(BorderFactory.createLineBorder(Color.BLUE));
+        setBorder(BorderFactory.createLineBorder(Color.BLACK));
         setPreferredSize(new Dimension(maxx, maxy));
         setBackground(Color.WHITE);
+        setVisible(true);
 
-        particleCount = 10;
+        particleCount = 50;
         particles = new Particle[particleCount];
         for ( int i=0; i<particleCount; i++ ){
             if (i%2 == 0) {
@@ -43,15 +44,19 @@ public class MainPanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if ( e.getSource()==timer ) {
-            System.out.println("New Timer");
-            repaint();
+            //System.out.println("New Timer");
+            moveAll();
+           // repaint();
         }
     }
 
+    @Override
     public void paintComponent( Graphics g ){
+        super.paintComponent(g);
         for ( int i=0; i<particleCount; i++ ) {
             particles[i].drawMe(g);
         }
+        particles[0].getInfo();
         System.out.println("Paint");
     }
 }
