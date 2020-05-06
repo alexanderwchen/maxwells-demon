@@ -29,6 +29,10 @@ public class Particle
         return isLeft;
     }
 
+    public int getDiameter(){
+        return diameter;
+    }
+
     public Particle(double maxx, double maxy, double wallThickness, boolean isSlow, boolean isLeft)
     {
         diameter = 5;
