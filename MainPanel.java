@@ -5,19 +5,19 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class MainPanel extends JPanel implements ActionListener {
-    final static private int maxx = 600;
-    final static private int maxy = 600;
+    private static final int MAXX = 600;
+    private static final int MAXY = 600;
 
-    final static private int wallThickness = 30;
-    final static private int wallLeft = (maxx-wallThickness)/2;
-    final static private int wallRight = (maxx+wallThickness)/2;
+    private static final int WALL_THICKNESS = 30;
+    private static final int WALL_LEFT = (MAXX-WALL_THICKNESS)/2;
+    private static final int WALL_RIGHT = (MAXX+WALL_THICKNESS)/2;
 
-    final static private int doorThickness = 50;
-    final static private int doorTop = (maxy-doorThickness)/2;
-    final static private int doorBottom = (maxy+doorThickness)/2;
+    private static final int DOOR_THICKNESS = 50;
+    private static final int DOOR_TOP = (MAXY-DOOR_THICKNESS)/2;
+    private static final int DOOR_BOTTOM = (MAXY+DOOR_THICKNESS)/2;
 
     private Timer timer;
-    final static private double deltat = .1; //  in seconds
+    private static final double DELTAT = .1; //  in seconds
 
     private int particleCount = 0;
     private ArrayList<Particle> particles = new ArrayList<Particle>();
@@ -26,26 +26,26 @@ public class MainPanel extends JPanel implements ActionListener {
 
     public MainPanel() {
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        setPreferredSize(new Dimension(maxx, maxy));
+        setPreferredSize(new Dimension(MAXX, MAXY));
         setBackground(Color.WHITE);
         setVisible(true);
 
-        timer = new Timer((int)(1000 * deltat),this );
+        timer = new Timer((int)(1000 * DELTAT),this );
         timer.start();
 
     }
 
     public void addParticle() {
-        particles.add(new Particle(maxx, maxy, wallThickness, true, true));
-        particles.add(new Particle(maxx, maxy, wallThickness, true, false));
-        particles.add(new Particle(maxx, maxy, wallThickness, false, true));
-        particles.add(new Particle(maxx, maxy, wallThickness, false, false));
+        particles.add(new Particle(MAXX, MAXY, WALL_THICKNESS, true, true));
+        particles.add(new Particle(MAXX, MAXY, WALL_THICKNESS, true, false));
+        particles.add(new Particle(MAXX, MAXY, WALL_THICKNESS, false, true));
+        particles.add(new Particle(MAXX, MAXY, WALL_THICKNESS, false, false));
         particleCount+=4;
     }
 
     private void moveAll()
     {
-        for ( int i=0; i<particleCount; i++ ) { particles.get(i).move(deltat); }
+        for ( int i=0; i<particleCount; i++ ) { particles.get(i).move(DELTAT); }
         checkIntersection();
     }
 
@@ -53,10 +53,10 @@ public class MainPanel extends JPanel implements ActionListener {
     {
         for(Particle p : particles){
 
-            if(p.getX() + p.getDiameter() > wallLeft && p.getX() < wallRight + p.getDiameter()){
+            if(p.getX() + p.getDiameter() >= WALL_LEFT && p.getX() <= WALL_RIGHT){
                 p.flipX();
 
-                if(doorBottom >= p.getY() + p.getDiameter() && p.getY() >= doorTop && isOpen){
+                if(DOOR_BOTTOM >= p.getY() + p.getDiameter() && p.getY() >= DOOR_TOP && isOpen){
                     p.flipX();
                     p.flipSides();
                 }
@@ -70,6 +70,8 @@ public class MainPanel extends JPanel implements ActionListener {
         }
         double totalTempSquared = 0;
         double count = 0;
+        double totalTempSquaredAverage;
+        double scaledTotalTempSquaredAverage;
 
         for(Particle p : particles){
             if(p.getIsLeft() == true){
@@ -77,8 +79,16 @@ public class MainPanel extends JPanel implements ActionListener {
                 count++;
             }
         }
-        return totalTempSquared/count;
-    }
+
+        totalTempSquaredAverage = totalTempSquared/count;
+
+        scaledTotalTempSquaredAverage =
+                100 * ((totalTempSquaredAverage - particles.get(0).SLOWMIN * particles.get(0).SLOWMIN)/
+                (particles.get(0).FASTMAX * particles.get(0).FASTMAX -
+                        particles.get(0).SLOWMIN * particles.get(0).SLOWMIN));
+
+        return scaledTotalTempSquaredAverage;
+    }//Temperature is scaled to 0 to 100
 
     public double getRightTemperature(){
         if(particleCount == 0){
@@ -86,15 +96,25 @@ public class MainPanel extends JPanel implements ActionListener {
         }
         double totalTempSquared = 0;
         double count = 0;
+        double totalTempSquaredAverage;
+        double scaledTotalTempSquaredAverage;
 
-        for(Particle p : particles) {
-            if (p.getIsLeft() == false) {
+        for(Particle p : particles){
+            if(p.getIsLeft() == false){
                 totalTempSquared += p.getVelocitycm() * p.getVelocitycm();
                 count++;
             }
         }
-        return totalTempSquared/count;
-    }
+
+        totalTempSquaredAverage = totalTempSquared/count;
+
+        scaledTotalTempSquaredAverage =
+                100 * ((totalTempSquaredAverage - particles.get(0).SLOWMIN * particles.get(0).SLOWMIN)/
+                (particles.get(0).FASTMAX * particles.get(0).FASTMAX -
+                        particles.get(0).SLOWMIN * particles.get(0).SLOWMIN));
+
+        return scaledTotalTempSquaredAverage;
+    }//Temperature is scaled to 0 to 100
 
     public int getLeftParticles(){
         int count = 0;
@@ -136,12 +156,12 @@ public class MainPanel extends JPanel implements ActionListener {
         }
         if(!isOpen) {
             g.setColor(Color.BLACK);
-            g.fillRect(wallLeft, 0, wallThickness, maxy);
+            g.fillRect(WALL_LEFT, 0, WALL_THICKNESS, MAXY);
         }
 
         else{
-            g.fillRect(wallLeft, 0, wallThickness, doorTop);
-            g.fillRect(wallLeft, doorBottom, wallThickness, maxy-doorBottom);
+            g.fillRect(WALL_LEFT, 0, WALL_THICKNESS, DOOR_TOP);
+            g.fillRect(WALL_LEFT, DOOR_BOTTOM, WALL_THICKNESS, MAXY-DOOR_BOTTOM);
         }
 
     }
