@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.text.DecimalFormat;
 import javax.swing.*;
 
 public class MaxwellsDemon extends JFrame implements ActionListener {
@@ -38,6 +39,8 @@ public class MaxwellsDemon extends JFrame implements ActionListener {
         //setBackground( Color.WHITE );
         //setSize(800, 800);
         setResizable(false);
+        DecimalFormat df = new DecimalFormat("###.##");
+
 
         //----Top Area
         titleArea = new JPanel();
@@ -51,25 +54,32 @@ public class MaxwellsDemon extends JFrame implements ActionListener {
         playingArea = new JPanel();
         playingArea.setLayout(new BorderLayout());
 
-        //top - temperatures
-        temperatureArea = new JPanel();
-        temperatureArea.setLayout(new GridLayout(1, 2, 50, 0));
-        JLabel temperatureLeft = new JLabel("TEMPERATURE1: $$", JLabel.CENTER);
-        temperatureLeft.setFont(new Font("Bebas Neue", Font.PLAIN, 24));
-        JLabel temperatureRight = new JLabel("TEMPERATURE2: $$", JLabel.CENTER);
-        temperatureRight.setFont(new Font("Bebas Neue", Font.PLAIN, 24));
-        temperatureArea.add(temperatureLeft);
-        temperatureArea.add(temperatureRight);
-        playingArea.add(temperatureArea, BorderLayout.NORTH);
-
-        //top - temperatures
         mainArea = new MainPanel();
 
         playingArea.add(mainArea, BorderLayout.CENTER);
 
+        JPanel tempPanel = new JPanel();
+        tempPanel.setPreferredSize(new Dimension(50, 600));
+
+        JPanel tempPanel2 = new JPanel();
+        tempPanel2.setPreferredSize(new Dimension(50, 600));
+
+        playingArea.add(tempPanel, BorderLayout.WEST);
+        playingArea.add(tempPanel2, BorderLayout.EAST);
 
         add(playingArea, BorderLayout.CENTER);
 
+        //top - temperatures
+        temperatureArea = new JPanel();
+        temperatureArea.setLayout(new GridLayout(1, 2, 0, 0));
+        JLabel temperatureLeft = new JLabel("TEMPERATURE1: " + df.format(mainArea.getLeftTemperature()), JLabel.CENTER);
+        temperatureLeft.setFont(new Font("Bebas Neue", Font.PLAIN, 24));
+        JLabel temperatureRight = new JLabel("TEMPERATURE2: " + df.format(mainArea.getRightTemperature()), JLabel.CENTER);
+        temperatureRight.setFont(new Font("Bebas Neue", Font.PLAIN, 24));
+        temperatureArea.add(temperatureLeft);
+        temperatureArea.add(temperatureRight);
+        playingArea.add(temperatureArea, BorderLayout.NORTH);
+        //top - temperatures
 
         //----Bottom Area
         bottomArea = new JPanel();
