@@ -94,7 +94,6 @@ public class MaxwellsDemon extends JFrame implements ActionListener, MouseListen
         playingArea.add(playingAreaTop, BorderLayout.NORTH);
         //top - labels
 
-
         add(playingArea, BorderLayout.CENTER);
         //----Playing Area
 
@@ -125,7 +124,6 @@ public class MaxwellsDemon extends JFrame implements ActionListener, MouseListen
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
         if (e.getSource() == addParticleButton) {
             System.out.println("add particle button pressed");
             mainArea.addParticle();
@@ -140,6 +138,11 @@ public class MaxwellsDemon extends JFrame implements ActionListener, MouseListen
 
     @Override
     public void paint(Graphics g) {
+        updateText();
+        super.paint(g);
+    }
+
+    public void updateText(){
         temperatureLeft.setText("TEMPERATURE1: " + DF.format(mainArea.getLeftTemperature()));
         temperatureRight.setText("TEMPERATURE2: " + DF.format(mainArea.getRightTemperature()));
         particlesLeft.setText(String.valueOf(mainArea.getLeftParticles()));
@@ -148,7 +151,6 @@ public class MaxwellsDemon extends JFrame implements ActionListener, MouseListen
         progressRight.setValue((int) mainArea.getRightTemperature());
         progressLeft.setString(String.valueOf(DF.format(mainArea.getLeftTemperature())));
         progressRight.setString(String.valueOf(DF.format(mainArea.getRightTemperature())));
-        super.paint(g);
     }
 
     @Override
