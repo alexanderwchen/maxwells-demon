@@ -25,7 +25,7 @@ public class MaxwellsDemon extends JFrame implements ActionListener, MouseListen
     private JProgressBar progressLeft;
     private JProgressBar progressRight;
 
-    final static private DecimalFormat df = new DecimalFormat("###.##");
+    private static final DecimalFormat DF = new DecimalFormat("###.##");
 
     public static void main(String[] args) {
         new MaxwellsDemon();
@@ -66,9 +66,9 @@ public class MaxwellsDemon extends JFrame implements ActionListener, MouseListen
         playingAreaTop = new JPanel();
         playingAreaTop.setLayout(new GridLayout(3, 2, 0, 0));
 
-        temperatureLeft = new JLabel("TEMPERATURE1: " + df.format(mainArea.getLeftTemperature()), JLabel.CENTER);
+        temperatureLeft = new JLabel("TEMPERATURE1: " + DF.format(mainArea.getLeftTemperature()), JLabel.CENTER);
         temperatureLeft.setFont(new Font("Bebas Neue", Font.PLAIN, 24));
-        temperatureRight = new JLabel("TEMPERATURE2: " + df.format(mainArea.getRightTemperature()), JLabel.CENTER);
+        temperatureRight = new JLabel("TEMPERATURE2: " + DF.format(mainArea.getRightTemperature()), JLabel.CENTER);
         temperatureRight.setFont(new Font("Bebas Neue", Font.PLAIN, 24));
         playingAreaTop.add(temperatureLeft);
         playingAreaTop.add(temperatureRight);
@@ -80,11 +80,11 @@ public class MaxwellsDemon extends JFrame implements ActionListener, MouseListen
         playingAreaTop.add(particlesLeft);
         playingAreaTop.add(particlesRight);
 
-        progressLeft = new JProgressBar(SwingConstants.HORIZONTAL,4,36);
+        progressLeft = new JProgressBar(SwingConstants.HORIZONTAL,0,100);
         progressLeft.setValue((int) mainArea.getLeftTemperature());
         progressLeft.setStringPainted(true);
         progressLeft.setString(String.valueOf(mainArea.getLeftTemperature()));
-        progressRight = new JProgressBar(SwingConstants.HORIZONTAL,4,36);
+        progressRight = new JProgressBar(SwingConstants.HORIZONTAL,0,100);
         progressLeft.setValue((int) mainArea.getRightTemperature());
         progressRight.setStringPainted(true);
         progressRight.setString(String.valueOf(mainArea.getRightTemperature()));
@@ -127,12 +127,12 @@ public class MaxwellsDemon extends JFrame implements ActionListener, MouseListen
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == addParticleButton) {
-            System.out.println("add particle");
+            System.out.println("add particle button pressed");
             mainArea.addParticle();
         }
 
         if (e.getSource() == resetButton) {
-            System.out.println("reset");
+            System.out.println("reset button pressed");
             mainArea.reset();
         }
         repaint();
@@ -140,14 +140,14 @@ public class MaxwellsDemon extends JFrame implements ActionListener, MouseListen
 
     @Override
     public void paint(Graphics g) {
-        temperatureLeft.setText("TEMPERATURE1: " + df.format(mainArea.getLeftTemperature()));
-        temperatureRight.setText("TEMPERATURE2: " + df.format(mainArea.getRightTemperature()));
+        temperatureLeft.setText("TEMPERATURE1: " + DF.format(mainArea.getLeftTemperature()));
+        temperatureRight.setText("TEMPERATURE2: " + DF.format(mainArea.getRightTemperature()));
         particlesLeft.setText(String.valueOf(mainArea.getLeftParticles()));
         particlesRight.setText(String.valueOf(mainArea.getRightParticles()));
         progressLeft.setValue((int) mainArea.getLeftTemperature());
         progressRight.setValue((int) mainArea.getRightTemperature());
-        progressLeft.setString(String.valueOf(df.format(mainArea.getLeftTemperature())));
-        progressRight.setString(String.valueOf(df.format(mainArea.getRightTemperature())));
+        progressLeft.setString(String.valueOf(DF.format(mainArea.getLeftTemperature())));
+        progressRight.setString(String.valueOf(DF.format(mainArea.getRightTemperature())));
         super.paint(g);
     }
 
@@ -160,12 +160,14 @@ public class MaxwellsDemon extends JFrame implements ActionListener, MouseListen
 
     @Override
     public void mousePressed(MouseEvent e) {
+        System.out.println("mouse clicked");
         mainArea.click();
         repaint();
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        System.out.println("mouse unclicked");
         mainArea.click();
         repaint();
     }
