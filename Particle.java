@@ -67,6 +67,15 @@ public class Particle
     }
 
     public void getInfo(){
+        System.out.println("Particle Info:");
+        System.out.println("x: " + x);
+        System.out.println("y: " + y);
+        System.out.println("vx: " + vx);
+        System.out.println("vy: " + vy);
+        System.out.println("isSlow: " + isSlow);
+        System.out.println("Velocity: " + velocitypx);
+    }
+    public void getInfoCM(){
         System.out.println("Particle Info (in cm):");
         System.out.println("x: " + x/resolution);
         System.out.println("y: " + y/resolution);
