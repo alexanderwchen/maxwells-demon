@@ -14,45 +14,125 @@ public class MaxwellsDemon extends JFrame implements ActionListener{
     Particle[] particles;
     int particleCount;
 
+    JPanel titleArea;
     JPanel playingArea;
+    JPanel temperatureArea;
+    JPanel bottomArea;
+
+    JButton openDoorButton;
+    JButton resetButton;
 
     public static void main( String[] args ){
         System.out.println("Start");
         new MaxwellsDemon();
     }
 
-    public MaxwellsDemon(){
+    public MaxwellsDemon() {
         System.out.println("MaxwellsDemon: Starting...");
         System.out.println("Resolution: " + resolution);
 
-        setDefaultCloseOperation( EXIT_ON_CLOSE );
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("Maxwell's Demon");
         setLayout(new BorderLayout());
-        setBackground( Color.WHITE );
-        setSize( maxx, maxy );
+        //setBackground( Color.WHITE );
+        setSize(maxx, maxy);
+        setResizable(false);
 
-        add( new JButton("Maxwell's Demon"), BorderLayout.NORTH);
+        titleArea = new JPanel();
+        //JButton start = new JButton("Start Maxwell's Demon");
+        JLabel title = new JLabel("Maxwell's Demon", JLabel.CENTER);
+        title.setFont(new Font("Bebas Neue", Font.PLAIN, 72));
+        titleArea.add(title);
+        add(titleArea, BorderLayout.NORTH);
+
+        playingArea = new JPanel();
+        //top - temperatures
+        temperatureArea = new JPanel();
+        temperatureArea.setLayout( new GridLayout(1,2, 50, 0 ));
+        JLabel temperatureLeft = new JLabel("TEMPERATURE1: $$", JLabel.CENTER);
+        temperatureLeft.setFont(new Font("Bebas Neue", Font.PLAIN, 24));
+        JLabel temperatureRight = new JLabel("TEMPERATURE2: $$", JLabel.CENTER);
+        temperatureRight.setFont(new Font("Bebas Neue", Font.PLAIN, 24));
+
+        temperatureArea.add(temperatureLeft);
+        temperatureArea.add(temperatureRight);
+
+
+        playingArea.add(temperatureArea,BorderLayout.NORTH);
+
+        add(playingArea,BorderLayout.CENTER);
+
+
+        bottomArea = new JPanel();
+        bottomArea.setLayout( new GridLayout(1,2,30,0));
+        openDoorButton = new JButton("OPEN DOOR");
+        openDoorButton.addActionListener(this);
+        resetButton = new JButton("RESET");
+        resetButton.addActionListener(this);
+        bottomArea.add(new JPanel());
+        bottomArea.add(openDoorButton);
+        bottomArea.add(resetButton);
+        add(bottomArea,BorderLayout.SOUTH);
+
+
 
 /*
-        JPanel panel0 = new JPanel();
-        panel0.setBackground( Color.yellow );
-        add(panel0);  // this.add ...
-        panel0.setLayout( new BorderLayout() );
-        panel0.add( new JButton("CA"), BorderLayout.WEST );
-        panel0.add( new JButton("MN"), BorderLayout.NORTH );
-        panel0.add( new JButton("DC"), BorderLayout.EAST );
-        panel0.add( new JButton("OH"), BorderLayout.CENTER );
-        panel0.add( new JButton("TX"), BorderLayout.SOUTH );
-*/
+//        titleArea = new JPanel();
+//        titleArea.setBackground(Color.blue);
+//        titleArea.setLayout( new FlowLayout());
+//        titleArea.setVisible(true);
+//
+//        JLabel title = new JLabel("Maxwell's Demon");
+//        JButton but = new JButton("Maxwell2");
+//        /*title.setLocation(100, 100);
+//        title.setSize(200,200);
+//        System.out.println(title.getLocation());
+//        System.out.println(title.getSize());
+//        title.setVisible(true);*/
+//
+//        titleArea.add(title);
+//        titleArea.add(but);
+//        add(titleArea, BorderLayout.NORTH);
+//        title.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
+//        title.setLocation(400,250);
+//        //add(but, BorderLayout.NORTH);
+//        //titleArea.add( new JButton("HI"), BorderLayout.NORTH);
+//
+//        JPanel panel = new JPanel();
+//        JLabel title2 = new JLabel();
+//
+//        panel.setBackground(Color.WHITE);
+//
+//        title2.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
+//        title2.setText("Maxwell3.0");
+//        panel.add(title2); // Default FlowLayout
+//
+//        add(panel); // Default BorderLayout at position CENTER
+//
+//
+//
+//        bottomArea = new JPanel();
+//        bottomArea.setBackground(Color.RED);
+//        bottomArea.setLayout(new GridLayout(1,3));
+//        add(bottomArea,BorderLayout.SOUTH);
+//        bottomArea.add(JButton("OPEN DOOR"), BorderL)
+//
+//        JPanel panel0 = new JPanel();
+//        panel0.setBackground( Color.yellow );
+//        add(panel0);  // this.add ...
+//        panel0.setLayout( new BorderLayout() );
+//        panel0.add( new JButton("CA"), BorderLayout.WEST );
+//        panel0.add( new JButton("MN"), BorderLayout.NORTH );
+//        panel0.add( new JButton("DC"), BorderLayout.EAST );
+//        panel0.add( new JButton("OH"), BorderLayout.CENTER );
+//        panel0.add( new JButton("TX"), BorderLayout.SOUTH );
+//*/
         /*JButton jb1 = new JButton("Hi");
         add(jb1, BorderLayout.NORTH);*/
 
 
-
-
-
-        particleCount = 0;
-        /*particles = new Particle[particleCount];
+        /*particleCount = 0;
+        particles = new Particle[particleCount];
         for ( int i=0; i<particleCount; i++ ){
             if (i%2 == 0) {
                 particles[i] = new Particle(maxx, maxy, true);
@@ -68,6 +148,7 @@ public class MaxwellsDemon extends JFrame implements ActionListener{
 
         setVisible(true);
     }
+
     public void moveAll()
     {
         for ( int i=0; i<particleCount; i++ ) { particles[i].move(deltat); }
@@ -75,23 +156,32 @@ public class MaxwellsDemon extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("click");
-        if ( e.getSource()==timer ) { moveAll(); }
-        System.out.println(java.time.LocalDateTime.now());
+        //System.out.println("click");
+        if ( e.getSource()==timer ) { System.out.println("timer");}
+        if ( e.getSource()==openDoorButton ) {
+            System.out.println("opening door");
+            //JOptionPane.showMessageDialog(null, "oop", "You have opened button", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        if ( e.getSource()==resetButton ) {
+            System.out.println("reset");
+            //JOptionPane.showMessageDialog(null, "oop", "You have opened button", JOptionPane.INFORMATION_MESSAGE);
+        }
+        //System.out.println(java.time.LocalDateTime.now());
         //particles[0].getInfo();
-        //repaint();
+        repaint();
     }
 
     @Override
     public void paint( Graphics g )
     {
-        //super.paint(g); takes too long
-
+        super.paint(g);// takes too long
+/*
         g.setColor( Color.WHITE ); // just white-out the window
         int w = getWidth();  int h = getHeight();
         g.fillRect( 0, 0, w, h );  // with a big rectangle
 
-
+*/
         //for ( int i=0; i<particleCount; i++ ) { particles[i].drawMe(g); }
 
     }
