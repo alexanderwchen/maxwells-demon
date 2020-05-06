@@ -83,6 +83,10 @@ public class Particle
         vy *= -1;
     }
 
+    public void flipSides(){
+        isLeft = !isLeft;
+    }
+
     public void drawMe( Graphics g )
     {
         //g.setColor( Color.WHITE ); // erase the old one
