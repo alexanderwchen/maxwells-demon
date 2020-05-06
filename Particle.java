@@ -2,6 +2,12 @@ import java.awt.*;
 
 public class Particle
 {
+
+    final static private int slowMin = 2;
+    final static private int slowMax = 4;
+    final static private int fastMin = 4;
+    final static private int fastMax = 6;
+
     private double x,y;
     private double vx,vy;
     private double oldx,oldy;
@@ -12,7 +18,6 @@ public class Particle
     private double resolution = (double) (Toolkit.getDefaultToolkit().getScreenResolution() / 2.54);
     final static private int diameter = 5;
     private boolean isLeft;
-
 
     public double getX() {
         return x;
@@ -52,10 +57,10 @@ public class Particle
         this.isSlow = isSlow;
         double angle = Math.random()*360;
         if(isSlow == true){
-            velocitycm = Math.random()*2+2;
+            velocitycm = Math.random()*(slowMax-slowMin)+slowMin;
         }
         else{
-            velocitycm = Math.random()*2+4;
+            velocitycm = Math.random()*(fastMax-fastMin)+fastMin;
         }
 
         velocitypx = velocitycm * resolution;
@@ -75,8 +80,8 @@ public class Particle
     {
         if ( x<0 ) { flipX(); }
         if ( y<0 ) { flipY(); }
-        if ( x>maxx ) { flipX(); }
-        if ( y>maxy ) { flipY(); }
+        if ( x>maxx-diameter ) { flipX(); }
+        if ( y>maxy-diameter ) { flipY(); }
     }
 
     public void flipX(){
@@ -99,7 +104,7 @@ public class Particle
             g.setColor(Color.RED);
         }
 
-        g.fillOval( (int)(x-2), (int)(y-2), diameter, diameter );
+        g.fillOval((int) x, (int)(y), diameter, diameter );
         g.setColor( Color.BLACK );
     }
 
