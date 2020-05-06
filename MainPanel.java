@@ -5,23 +5,24 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class MainPanel extends JPanel implements ActionListener {
-    final static int maxx = 600;
-    final static int maxy = 600;
+    final static private int maxx = 600;
+    final static private int maxy = 600;
 
-    final static int wallThickness = 30;
-    final static int wallLeft = (maxx-wallThickness)/2;
-    final static int wallRight = (maxx+wallThickness)/2;
+    final static private int wallThickness = 30;
+    final static private int wallLeft = (maxx-wallThickness)/2;
+    final static private int wallRight = (maxx+wallThickness)/2;
 
-    final static int doorThickness = 50;
-    final static int doorTop = (maxy-doorThickness)/2;
-    final static int doorBottom = (maxy+doorThickness)/2;
+    final static private int doorThickness = 50;
+    final static private int doorTop = (maxy-doorThickness)/2;
+    final static private int doorBottom = (maxy+doorThickness)/2;
 
-    boolean isOpen = false;
+    private Timer timer;
+    final static private double deltat = .1; //  in seconds
 
-    Timer timer;
-    double deltat = .1; //  in seconds
-    int particleCount = 0;
-    ArrayList<Particle> particles = new ArrayList<Particle>();
+    private int particleCount = 0;
+    private ArrayList<Particle> particles = new ArrayList<Particle>();
+
+    private boolean isOpen = false;
 
     public MainPanel() {
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -35,20 +36,20 @@ public class MainPanel extends JPanel implements ActionListener {
     }
 
     public void addParticle() {
-        System.out.println("Adding 4 Particles");
         particles.add(new Particle(maxx, maxy, wallThickness, true, true));
         particles.add(new Particle(maxx, maxy, wallThickness, true, false));
         particles.add(new Particle(maxx, maxy, wallThickness, false, true));
         particles.add(new Particle(maxx, maxy, wallThickness, false, false));
         particleCount+=4;
     }
-    public void moveAll()
+
+    private void moveAll()
     {
         for ( int i=0; i<particleCount; i++ ) { particles.get(i).move(deltat); }
         checkIntersection();
     }
 
-    public void checkIntersection()
+    private void checkIntersection()
     {
         for(Particle p : particles){
 
@@ -130,8 +131,8 @@ public class MainPanel extends JPanel implements ActionListener {
     public void paintComponent( Graphics g ){
         super.paintComponent(g);
 
-        for ( int i=0; i<particleCount; i++ ) {
-            particles.get(i).drawMe(g);
+        for ( Particle p : particles) {
+            p.drawMe(g);
         }
         if(!isOpen) {
             g.setColor(Color.BLACK);

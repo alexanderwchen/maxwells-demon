@@ -7,48 +7,36 @@ public class MaxwellsDemon extends JFrame implements ActionListener, MouseListen
 
     double deltat = .1; //  in seconds
     Timer timer;
-    double resolution = Toolkit.getDefaultToolkit().getScreenResolution() / 2.54;
 
-    int maxx = 600;
-    int maxy = 600;
+    private JPanel titleArea;
+    private JPanel playingArea;
+    private JPanel playingAreaTop;
+    private JPanel bottomArea;
+    private MainPanel mainArea;
 
-    Particle[] particles;
-    int particleCount;
+    private JButton addParticleButton;
+    private JButton resetButton;
 
-    JPanel titleArea;
-    JPanel playingArea;
-    JPanel playingAreaTop;
-    JPanel bottomArea;
-    MainPanel mainArea;
+    private JLabel temperatureLeft;
+    private JLabel temperatureRight;
+    private JLabel particlesLeft;
+    private JLabel particlesRight;
 
-    JButton addParticleButton;
-    JButton resetButton;
+    private JProgressBar progressLeft;
+    private JProgressBar progressRight;
 
-    JLabel temperatureLeft;
-    JLabel temperatureRight;
-    JLabel particlesLeft;
-    JLabel particlesRight;
-
-    JProgressBar progressLeft;
-    JProgressBar progressRight;
-
-
-    DecimalFormat df = new DecimalFormat("###.##");
+    final static private DecimalFormat df = new DecimalFormat("###.##");
 
     public static void main(String[] args) {
-        System.out.println("Start");
         new MaxwellsDemon();
     }
 
     public MaxwellsDemon() {
         System.out.println("MaxwellsDemon: Starting...");
-        System.out.println("Resolution: " + resolution);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("Maxwell's Demon");
         setLayout(new BorderLayout());
-        //setBackground( Color.WHITE );
-        //setSize(800, 800);
         setResizable(false);
 
         //----Top Area
@@ -59,6 +47,7 @@ public class MaxwellsDemon extends JFrame implements ActionListener, MouseListen
         add(titleArea, BorderLayout.NORTH);
         //----Top Area
 
+        //----Playing Area
         playingArea = new JPanel();
         playingArea.setLayout(new BorderLayout());
 
@@ -68,14 +57,10 @@ public class MaxwellsDemon extends JFrame implements ActionListener, MouseListen
 
         JPanel tempPanel = new JPanel();
         tempPanel.setPreferredSize(new Dimension(50, 600));
-
         JPanel tempPanel2 = new JPanel();
         tempPanel2.setPreferredSize(new Dimension(50, 600));
-
         playingArea.add(tempPanel, BorderLayout.WEST);
         playingArea.add(tempPanel2, BorderLayout.EAST);
-
-        add(playingArea, BorderLayout.CENTER);
 
         //top - labels
         playingAreaTop = new JPanel();
@@ -106,9 +91,12 @@ public class MaxwellsDemon extends JFrame implements ActionListener, MouseListen
         playingAreaTop.add(progressLeft);
         playingAreaTop.add(progressRight);
 
-
         playingArea.add(playingAreaTop, BorderLayout.NORTH);
         //top - labels
+
+
+        add(playingArea, BorderLayout.CENTER);
+        //----Playing Area
 
         //----Bottom Area
         bottomArea = new JPanel();
@@ -130,6 +118,7 @@ public class MaxwellsDemon extends JFrame implements ActionListener, MouseListen
 
         timer = new Timer((int) (1000 * deltat), this);
         timer.start();
+
         pack();
         setVisible(true);
     }
