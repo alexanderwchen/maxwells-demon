@@ -38,3 +38,6 @@ Desktop.ini
 
 #Compiled Directory
 /out
+
+#StarUML files
+*.mdj
