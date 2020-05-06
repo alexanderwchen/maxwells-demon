@@ -17,7 +17,7 @@ public class MaxwellsDemon extends JFrame implements ActionListener, MouseListen
 
     JPanel titleArea;
     JPanel playingArea;
-    JPanel temperatureArea;
+    JPanel playingAreaTop;
     JPanel bottomArea;
     MainPanel mainArea;
 
@@ -28,6 +28,10 @@ public class MaxwellsDemon extends JFrame implements ActionListener, MouseListen
     JLabel temperatureRight;
     JLabel particlesLeft;
     JLabel particlesRight;
+
+    JProgressBar progressLeft;
+    JProgressBar progressRight;
+
 
     DecimalFormat df = new DecimalFormat("###.##");
 
@@ -73,26 +77,38 @@ public class MaxwellsDemon extends JFrame implements ActionListener, MouseListen
 
         add(playingArea, BorderLayout.CENTER);
 
-        //top - temperatures
-        temperatureArea = new JPanel();
-        temperatureArea.setLayout(new GridLayout(2, 2, 0, 0));
+        //top - labels
+        playingAreaTop = new JPanel();
+        playingAreaTop.setLayout(new GridLayout(3, 2, 0, 0));
 
         temperatureLeft = new JLabel("TEMPERATURE1: " + df.format(mainArea.getLeftTemperature()), JLabel.CENTER);
         temperatureLeft.setFont(new Font("Bebas Neue", Font.PLAIN, 24));
         temperatureRight = new JLabel("TEMPERATURE2: " + df.format(mainArea.getRightTemperature()), JLabel.CENTER);
         temperatureRight.setFont(new Font("Bebas Neue", Font.PLAIN, 24));
-        temperatureArea.add(temperatureLeft);
-        temperatureArea.add(temperatureRight);
+        playingAreaTop.add(temperatureLeft);
+        playingAreaTop.add(temperatureRight);
 
         particlesLeft = new JLabel(String.valueOf(mainArea.getLeftParticles()), JLabel.CENTER);
         particlesLeft.setFont(new Font("Bebas Neue", Font.PLAIN, 24));
         particlesRight = new JLabel(String.valueOf(mainArea.getRightParticles()), JLabel.CENTER);
         particlesRight.setFont(new Font("Bebas Neue", Font.PLAIN, 24));
-        temperatureArea.add(particlesLeft);
-        temperatureArea.add(particlesRight);
+        playingAreaTop.add(particlesLeft);
+        playingAreaTop.add(particlesRight);
 
-        playingArea.add(temperatureArea, BorderLayout.NORTH);
-        //top - temperatures
+        progressLeft = new JProgressBar(SwingConstants.HORIZONTAL,4,36);
+        progressLeft.setValue((int) mainArea.getLeftTemperature());
+        progressLeft.setStringPainted(true);
+        progressLeft.setString(String.valueOf(mainArea.getLeftTemperature()));
+        progressRight = new JProgressBar(SwingConstants.HORIZONTAL,4,36);
+        progressLeft.setValue((int) mainArea.getRightTemperature());
+        progressRight.setStringPainted(true);
+        progressRight.setString(String.valueOf(mainArea.getRightTemperature()));
+        playingAreaTop.add(progressLeft);
+        playingAreaTop.add(progressRight);
+
+
+        playingArea.add(playingAreaTop, BorderLayout.NORTH);
+        //top - labels
 
         //----Bottom Area
         bottomArea = new JPanel();
@@ -139,6 +155,10 @@ public class MaxwellsDemon extends JFrame implements ActionListener, MouseListen
         temperatureRight.setText("TEMPERATURE2: " + df.format(mainArea.getRightTemperature()));
         particlesLeft.setText(String.valueOf(mainArea.getLeftParticles()));
         particlesRight.setText(String.valueOf(mainArea.getRightParticles()));
+        progressLeft.setValue((int) mainArea.getLeftTemperature());
+        progressRight.setValue((int) mainArea.getRightTemperature());
+        progressLeft.setString(String.valueOf(df.format(mainArea.getLeftTemperature())));
+        progressRight.setString(String.valueOf(df.format(mainArea.getRightTemperature())));
         super.paint(g);
     }
 
