@@ -21,8 +21,13 @@ public class MaxwellsDemon extends JFrame implements ActionListener {
     JPanel bottomArea;
     MainPanel mainArea;
 
-    JButton openDoorButton;
+    JButton addParticleButton;
     JButton resetButton;
+
+    JLabel temperatureLeft;
+    JLabel temperatureRight;
+
+    DecimalFormat df = new DecimalFormat("###.##");
 
     public static void main(String[] args) {
         System.out.println("Start");
@@ -39,7 +44,6 @@ public class MaxwellsDemon extends JFrame implements ActionListener {
         //setBackground( Color.WHITE );
         //setSize(800, 800);
         setResizable(false);
-        DecimalFormat df = new DecimalFormat("###.##");
 
 
         //----Top Area
@@ -72,9 +76,9 @@ public class MaxwellsDemon extends JFrame implements ActionListener {
         //top - temperatures
         temperatureArea = new JPanel();
         temperatureArea.setLayout(new GridLayout(1, 2, 0, 0));
-        JLabel temperatureLeft = new JLabel("TEMPERATURE1: " + df.format(mainArea.getLeftTemperature()), JLabel.CENTER);
+        temperatureLeft = new JLabel("TEMPERATURE1: " + df.format(mainArea.getLeftTemperature()), JLabel.CENTER);
         temperatureLeft.setFont(new Font("Bebas Neue", Font.PLAIN, 24));
-        JLabel temperatureRight = new JLabel("TEMPERATURE2: " + df.format(mainArea.getRightTemperature()), JLabel.CENTER);
+        temperatureRight = new JLabel("TEMPERATURE2: " + df.format(mainArea.getRightTemperature()), JLabel.CENTER);
         temperatureRight.setFont(new Font("Bebas Neue", Font.PLAIN, 24));
         temperatureArea.add(temperatureLeft);
         temperatureArea.add(temperatureRight);
@@ -85,14 +89,14 @@ public class MaxwellsDemon extends JFrame implements ActionListener {
         bottomArea = new JPanel();
         bottomArea.setLayout(new GridLayout(1, 2, 30, 0));
 
-        openDoorButton = new JButton("OPEN DOOR");
-        openDoorButton.addActionListener(this);
-        openDoorButton.setPreferredSize(new Dimension(50, 40));
+        addParticleButton = new JButton("ADD PARTICLE");
+        addParticleButton.addActionListener(this);
+        addParticleButton.setPreferredSize(new Dimension(50, 40));
         resetButton = new JButton("RESET");
         resetButton.addActionListener(this);
 
         bottomArea.add(new JPanel());
-        bottomArea.add(openDoorButton);
+        bottomArea.add(addParticleButton);
         bottomArea.add(resetButton);
         add(bottomArea, BorderLayout.SOUTH);
         //----Bottom Area
@@ -110,8 +114,11 @@ public class MaxwellsDemon extends JFrame implements ActionListener {
         if (e.getSource() == timer) {
             //System.out.println("timer");
         }
-        if (e.getSource() == openDoorButton) {
-            System.out.println("opening door");
+        if (e.getSource() == addParticleButton) {
+            System.out.println("add particle ");
+            mainArea.addParticle();
+            temperatureLeft.setText("TEMPERATURE1: " + df.format(mainArea.getLeftTemperature()));
+            temperatureRight.setText("TEMPERATURE2: " + df.format(mainArea.getRightTemperature()));
             //JOptionPane.showMessageDialog(null, "oop", "You have opened button", JOptionPane.INFORMATION_MESSAGE);
         }
 
