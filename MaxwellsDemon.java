@@ -109,29 +109,24 @@ public class MaxwellsDemon extends JFrame implements ActionListener, MouseListen
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //System.out.println("click");
         if (e.getSource() == timer) {
-            //System.out.println("timer");
         }
         if (e.getSource() == addParticleButton) {
-            System.out.println("add particle ");
+            System.out.println("add particle");
             mainArea.addParticle();
-            temperatureLeft.setText("TEMPERATURE1: " + df.format(mainArea.getLeftTemperature()));
-            temperatureRight.setText("TEMPERATURE2: " + df.format(mainArea.getRightTemperature()));
-            //JOptionPane.showMessageDialog(null, "oop", "You have opened button", JOptionPane.INFORMATION_MESSAGE);
         }
 
         if (e.getSource() == resetButton) {
             System.out.println("reset");
-            //JOptionPane.showMessageDialog(null, "oop", "You have opened button", JOptionPane.INFORMATION_MESSAGE);
+            mainArea.reset();
         }
-        //System.out.println(java.time.LocalDateTime.now());
-        //particles[0].getInfo();
         repaint();
     }
 
     @Override
     public void paint(Graphics g) {
+        temperatureLeft.setText("TEMPERATURE1: " + df.format(mainArea.getLeftTemperature()));
+        temperatureRight.setText("TEMPERATURE2: " + df.format(mainArea.getRightTemperature()));
         super.paint(g);// takes too long
 /*
         g.setColor( Color.WHITE ); // just white-out the window
@@ -149,11 +144,13 @@ public class MaxwellsDemon extends JFrame implements ActionListener, MouseListen
     @Override
     public void mousePressed(MouseEvent e) {
         mainArea.click();
+        repaint();
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
         mainArea.click();
+        repaint();
     }
 
     @Override

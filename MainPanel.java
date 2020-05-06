@@ -99,6 +99,11 @@ public class MainPanel extends JPanel implements ActionListener {
         isOpen = !isOpen;
     }
 
+    public void reset(){
+        particleCount = 0;
+        particles.clear();
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if ( e.getSource()==timer ) {
