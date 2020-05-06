@@ -41,3 +41,6 @@ Desktop.ini
 
 #StarUML files
 *.mdj
+
+#plantUML files
+*.plantuml
