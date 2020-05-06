@@ -2,30 +2,55 @@ import java.awt.*;
 
 public class Particle
 {
-    double x,y;
-    double vx,vy;
-    double oldx,oldy;
-    double maxx,maxy;
-    boolean isSlow;
-    double velocitycm;
-    double velocitypx;
-    double resolution = (double) (Toolkit.getDefaultToolkit().getScreenResolution() / 2.54);
+    private double x,y;
+    private double vx,vy;
+    private double oldx,oldy;
+    private double maxx,maxy;
+    private boolean isSlow;
+    private double velocitycm;
+    private double velocitypx;
+    private double resolution = (double) (Toolkit.getDefaultToolkit().getScreenResolution() / 2.54);
+    private int diameter;
+    private boolean isLeft;
 
-    public Particle(double maxx, double maxy, boolean isSlow)
+
+    public double getX() {
+        return x;
+    }
+    public double getY(){
+        return y;
+    }
+
+    public double getVelocitycm(){
+        return velocitycm;
+    }
+
+    public boolean getIsLeft(){
+        return isLeft;
+    }
+
+    public Particle(double maxx, double maxy, double wallThickness, boolean isSlow, boolean isLeft)
     {
+        diameter = 5;
         this.maxx = maxx;
         this.maxy = maxy;
 
-        x = Math.random() * maxx;
+        this.isLeft = isLeft;
+
+        if(isLeft){
+            x = Math.random() * ((maxx-wallThickness)/2);
+        }
+        else{
+            x = Math.random() * ((maxx-wallThickness)/2) + (maxx+wallThickness)/2;
+        }
+
         y = Math.random() * maxy;
+
         this.isSlow = isSlow;
-
         double angle = Math.random()*360;
-
         if(isSlow == true){
             velocitycm = Math.random()*2+2;
         }
-
         else{
             velocitycm = Math.random()*2+4;
         }
@@ -45,10 +70,17 @@ public class Particle
 
     public void stayOnScreen()
     {
-        if ( x<0 ) { vx *= -1; }
-        if ( y<0 ) { vy *= -1; }
-        if ( x>maxx ) { vx *= -1; }
-        if ( y>maxy ) { vy *= -1; }
+        if ( x<0 ) { flipX(); }
+        if ( y<0 ) { flipY(); }
+        if ( x>maxx ) { flipX(); }
+        if ( y>maxy ) { flipY(); }
+    }
+
+    public void flipX(){
+        vx *= -1;
+    }
+    public void flipY(){
+        vy *= -1;
     }
 
     public void drawMe( Graphics g )
@@ -63,7 +95,7 @@ public class Particle
             g.setColor(Color.RED);
         }
 
-        g.fillOval( (int)(x-2), (int)(y-2), 5, 5 );
+        g.fillOval( (int)(x-2), (int)(y-2), diameter, diameter );
     }
 
     public void getInfo(){
