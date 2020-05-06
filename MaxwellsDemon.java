@@ -5,8 +5,8 @@ import javax.swing.*;
 
 public class MaxwellsDemon extends JFrame implements ActionListener, MouseListener {
 
-    double deltat = .1; //  in seconds
-    Timer timer;
+    private static final double DELTAT = .1; //  in seconds
+    private Timer timer;
 
     private JPanel titleArea;
     private JPanel playingArea;
@@ -115,7 +115,7 @@ public class MaxwellsDemon extends JFrame implements ActionListener, MouseListen
 
         addMouseListener(this);
 
-        timer = new Timer((int) (1000 * deltat), this);
+        timer = new Timer((int) (1000 * DELTAT), this);
         timer.start();
 
         pack();
