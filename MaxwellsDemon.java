@@ -3,7 +3,7 @@ import java.awt.event.*;
 import java.text.DecimalFormat;
 import javax.swing.*;
 
-public class MaxwellsDemon extends JFrame implements ActionListener {
+public class MaxwellsDemon extends JFrame implements ActionListener, MouseListener {
 
     double deltat = .1; //  in seconds
     Timer timer;
@@ -45,10 +45,8 @@ public class MaxwellsDemon extends JFrame implements ActionListener {
         //setSize(800, 800);
         setResizable(false);
 
-
         //----Top Area
         titleArea = new JPanel();
-        //JButton start = new JButton("Start Maxwell's Demon");
         JLabel title = new JLabel("Maxwell's Demon", JLabel.CENTER);
         title.setFont(new Font("Bebas Neue", Font.PLAIN, 72));
         titleArea.add(title);
@@ -101,6 +99,7 @@ public class MaxwellsDemon extends JFrame implements ActionListener {
         add(bottomArea, BorderLayout.SOUTH);
         //----Bottom Area
 
+        addMouseListener(this);
 
         timer = new Timer((int) (1000 * deltat), this);
         timer.start();
@@ -143,6 +142,25 @@ public class MaxwellsDemon extends JFrame implements ActionListener {
         //for ( int i=0; i<particleCount; i++ ) { particles[i].drawMe(g); }
 
     }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {}
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        mainArea.click();
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        mainArea.click();
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {}
+
+    @Override
+    public void mouseExited(MouseEvent e) {}
 }
 
 
