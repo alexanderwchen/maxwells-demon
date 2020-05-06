@@ -26,6 +26,8 @@ public class MaxwellsDemon extends JFrame implements ActionListener, MouseListen
 
     JLabel temperatureLeft;
     JLabel temperatureRight;
+    JLabel particlesLeft;
+    JLabel particlesRight;
 
     DecimalFormat df = new DecimalFormat("###.##");
 
@@ -73,13 +75,22 @@ public class MaxwellsDemon extends JFrame implements ActionListener, MouseListen
 
         //top - temperatures
         temperatureArea = new JPanel();
-        temperatureArea.setLayout(new GridLayout(1, 2, 0, 0));
+        temperatureArea.setLayout(new GridLayout(2, 2, 0, 0));
+
         temperatureLeft = new JLabel("TEMPERATURE1: " + df.format(mainArea.getLeftTemperature()), JLabel.CENTER);
         temperatureLeft.setFont(new Font("Bebas Neue", Font.PLAIN, 24));
         temperatureRight = new JLabel("TEMPERATURE2: " + df.format(mainArea.getRightTemperature()), JLabel.CENTER);
         temperatureRight.setFont(new Font("Bebas Neue", Font.PLAIN, 24));
         temperatureArea.add(temperatureLeft);
         temperatureArea.add(temperatureRight);
+
+        particlesLeft = new JLabel(String.valueOf(mainArea.getLeftParticles()), JLabel.CENTER);
+        particlesLeft.setFont(new Font("Bebas Neue", Font.PLAIN, 24));
+        particlesRight = new JLabel(String.valueOf(mainArea.getRightParticles()), JLabel.CENTER);
+        particlesRight.setFont(new Font("Bebas Neue", Font.PLAIN, 24));
+        temperatureArea.add(particlesLeft);
+        temperatureArea.add(particlesRight);
+
         playingArea.add(temperatureArea, BorderLayout.NORTH);
         //top - temperatures
 
@@ -127,6 +138,8 @@ public class MaxwellsDemon extends JFrame implements ActionListener, MouseListen
     public void paint(Graphics g) {
         temperatureLeft.setText("TEMPERATURE1: " + df.format(mainArea.getLeftTemperature()));
         temperatureRight.setText("TEMPERATURE2: " + df.format(mainArea.getRightTemperature()));
+        particlesLeft.setText(String.valueOf(mainArea.getLeftParticles()));
+        particlesRight.setText(String.valueOf(mainArea.getRightParticles()));
         super.paint(g);// takes too long
 /*
         g.setColor( Color.WHITE ); // just white-out the window

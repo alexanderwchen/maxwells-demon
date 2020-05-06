@@ -95,6 +95,21 @@ public class MainPanel extends JPanel implements ActionListener {
         return totalTempSquared/count;
     }
 
+    public int getLeftParticles(){
+        int count = 0;
+
+        for(Particle p : particles) {
+            if (p.getIsLeft() == false) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public int getRightParticles(){
+        return particleCount - getLeftParticles();
+    }
+
     public void click(){
         isOpen = !isOpen;
     }
