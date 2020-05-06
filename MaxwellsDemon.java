@@ -18,6 +18,7 @@ public class MaxwellsDemon extends JFrame implements ActionListener{
     JPanel playingArea;
     JPanel temperatureArea;
     JPanel bottomArea;
+    JPanel mainArea;
 
     JButton openDoorButton;
     JButton resetButton;
@@ -35,17 +36,21 @@ public class MaxwellsDemon extends JFrame implements ActionListener{
         setTitle("Maxwell's Demon");
         setLayout(new BorderLayout());
         //setBackground( Color.WHITE );
-        setSize(maxx, maxy);
+        //setSize(800, 800);
         setResizable(false);
 
+        //----Top Area
         titleArea = new JPanel();
         //JButton start = new JButton("Start Maxwell's Demon");
         JLabel title = new JLabel("Maxwell's Demon", JLabel.CENTER);
         title.setFont(new Font("Bebas Neue", Font.PLAIN, 72));
         titleArea.add(title);
         add(titleArea, BorderLayout.NORTH);
+        //----Top Area
 
         playingArea = new JPanel();
+        playingArea.setLayout(new BorderLayout());
+
         //top - temperatures
         temperatureArea = new JPanel();
         temperatureArea.setLayout( new GridLayout(1,2, 50, 0 ));
@@ -53,82 +58,44 @@ public class MaxwellsDemon extends JFrame implements ActionListener{
         temperatureLeft.setFont(new Font("Bebas Neue", Font.PLAIN, 24));
         JLabel temperatureRight = new JLabel("TEMPERATURE2: $$", JLabel.CENTER);
         temperatureRight.setFont(new Font("Bebas Neue", Font.PLAIN, 24));
-
         temperatureArea.add(temperatureLeft);
         temperatureArea.add(temperatureRight);
-
-
         playingArea.add(temperatureArea,BorderLayout.NORTH);
+
+        //top - temperatures
+        mainArea = new JPanel();
+        mainArea.setPreferredSize(new Dimension(maxx, maxy));
+        mainArea.setBackground(Color.WHITE);
+
+        playingArea.add(mainArea,BorderLayout.CENTER);
+
 
         add(playingArea,BorderLayout.CENTER);
 
 
+
+
+
+
+        //----Bottom Area
         bottomArea = new JPanel();
         bottomArea.setLayout( new GridLayout(1,2,30,0));
+
         openDoorButton = new JButton("OPEN DOOR");
         openDoorButton.addActionListener(this);
+        openDoorButton.setPreferredSize(new Dimension(50,40));
         resetButton = new JButton("RESET");
         resetButton.addActionListener(this);
+
         bottomArea.add(new JPanel());
         bottomArea.add(openDoorButton);
         bottomArea.add(resetButton);
         add(bottomArea,BorderLayout.SOUTH);
+        //----Bottom Area
 
 
 
-/*
-//        titleArea = new JPanel();
-//        titleArea.setBackground(Color.blue);
-//        titleArea.setLayout( new FlowLayout());
-//        titleArea.setVisible(true);
-//
-//        JLabel title = new JLabel("Maxwell's Demon");
-//        JButton but = new JButton("Maxwell2");
-//        /*title.setLocation(100, 100);
-//        title.setSize(200,200);
-//        System.out.println(title.getLocation());
-//        System.out.println(title.getSize());
-//        title.setVisible(true);*/
-//
-//        titleArea.add(title);
-//        titleArea.add(but);
-//        add(titleArea, BorderLayout.NORTH);
-//        title.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
-//        title.setLocation(400,250);
-//        //add(but, BorderLayout.NORTH);
-//        //titleArea.add( new JButton("HI"), BorderLayout.NORTH);
-//
-//        JPanel panel = new JPanel();
-//        JLabel title2 = new JLabel();
-//
-//        panel.setBackground(Color.WHITE);
-//
-//        title2.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
-//        title2.setText("Maxwell3.0");
-//        panel.add(title2); // Default FlowLayout
-//
-//        add(panel); // Default BorderLayout at position CENTER
-//
-//
-//
-//        bottomArea = new JPanel();
-//        bottomArea.setBackground(Color.RED);
-//        bottomArea.setLayout(new GridLayout(1,3));
-//        add(bottomArea,BorderLayout.SOUTH);
-//        bottomArea.add(JButton("OPEN DOOR"), BorderL)
-//
-//        JPanel panel0 = new JPanel();
-//        panel0.setBackground( Color.yellow );
-//        add(panel0);  // this.add ...
-//        panel0.setLayout( new BorderLayout() );
-//        panel0.add( new JButton("CA"), BorderLayout.WEST );
-//        panel0.add( new JButton("MN"), BorderLayout.NORTH );
-//        panel0.add( new JButton("DC"), BorderLayout.EAST );
-//        panel0.add( new JButton("OH"), BorderLayout.CENTER );
-//        panel0.add( new JButton("TX"), BorderLayout.SOUTH );
-//*/
-        /*JButton jb1 = new JButton("Hi");
-        add(jb1, BorderLayout.NORTH);*/
+
 
 
         /*particleCount = 0;
@@ -145,7 +112,7 @@ public class MaxwellsDemon extends JFrame implements ActionListener{
 
         timer = new Timer((int)(1000 * deltat), this);
         timer.start();
-
+        pack();
         setVisible(true);
     }
 
