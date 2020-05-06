@@ -3,11 +3,12 @@ import java.awt.*;
 public class Particle
 {
 
-    final static private int slowMin = 2;
-    final static private int slowMax = 4;
-    final static private int fastMin = 4;
-    final static private int fastMax = 6;
+    public static final int SLOWMIN = 2;
+    public static final int SLOWMAX = 4;
+    public static final int FASTMIN = 4;
+    public static final int FASTMAX = 6;
 
+    private static final int DIAMETER = 5;
     private double x,y;
     private double vx,vy;
     private double oldx,oldy;
@@ -16,7 +17,6 @@ public class Particle
     private double velocitycm;
     private double velocitypx;
     private double resolution = (double) (Toolkit.getDefaultToolkit().getScreenResolution() / 2.54);
-    final static private int diameter = 5;
     private boolean isLeft;
 
     public double getX() {
@@ -35,7 +35,7 @@ public class Particle
     }
 
     public int getDiameter(){
-        return diameter;
+        return DIAMETER;
     }
 
     public Particle(double maxx, double maxy, double wallThickness, boolean isSlow, boolean isLeft)
@@ -57,10 +57,10 @@ public class Particle
         this.isSlow = isSlow;
         double angle = Math.random()*360;
         if(isSlow == true){
-            velocitycm = Math.random()*(slowMax-slowMin)+slowMin;
+            velocitycm = Math.random()*(SLOWMAX-SLOWMIN)+SLOWMIN;
         }
         else{
-            velocitycm = Math.random()*(fastMax-fastMin)+fastMin;
+            velocitycm = Math.random()*(FASTMAX-FASTMIN)+FASTMIN;
         }
 
         velocitypx = velocitycm * resolution;
@@ -80,8 +80,8 @@ public class Particle
     {
         if ( x<0 ) { flipX(); }
         if ( y<0 ) { flipY(); }
-        if ( x>maxx-diameter ) { flipX(); }
-        if ( y>maxy-diameter ) { flipY(); }
+        if ( x>maxx-DIAMETER ) { flipX(); }
+        if ( y>maxy-DIAMETER ) { flipY(); }
     }
 
     public void flipX(){
@@ -104,7 +104,7 @@ public class Particle
             g.setColor(Color.RED);
         }
 
-        g.fillOval((int) x, (int)(y), diameter, diameter );
+        g.fillOval((int) x, (int)(y), DIAMETER, DIAMETER );
         g.setColor( Color.BLACK );
     }
 
