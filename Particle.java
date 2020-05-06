@@ -64,8 +64,8 @@ public class Particle
         }
 
         velocitypx = velocitycm * resolution;
-        vx = velocitypx * Math.cos(velocitypx);
-        vy = velocitypx * Math.sin(velocitypx);
+        vx = velocitypx * Math.cos(angle);
+        vy = velocitypx * Math.sin(angle);
     }
 
     public void move( double deltat )
