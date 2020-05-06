@@ -93,9 +93,6 @@ public class Particle
 
     public void drawMe( Graphics g )
     {
-        //g.setColor( Color.WHITE ); // erase the old one
-        //g.fillOval( (int)(oldx-2), (int)(oldy-2), 5, 5 );
-
         if(isSlow){
             g.setColor( Color.BLUE );
         }
@@ -104,6 +101,7 @@ public class Particle
         }
 
         g.fillOval( (int)(x-2), (int)(y-2), diameter, diameter );
+        g.setColor( Color.BLACK );
     }
 
     public void getInfo(){

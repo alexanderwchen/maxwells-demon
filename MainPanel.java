@@ -130,16 +130,18 @@ public class MainPanel extends JPanel implements ActionListener {
     public void paintComponent( Graphics g ){
         super.paintComponent(g);
 
-        g.setColor(Color.BLACK);
-        g.fillRect( wallLeft, 0, wallThickness, maxy );
-
-        if(isOpen == true) {
-            g.setColor(Color.WHITE);
-            g.fillRect(wallLeft, doorTop, wallThickness, doorThickness);
-        }
-
         for ( int i=0; i<particleCount; i++ ) {
             particles.get(i).drawMe(g);
         }
+        if(!isOpen) {
+            g.setColor(Color.BLACK);
+            g.fillRect(wallLeft, 0, wallThickness, maxy);
+        }
+
+        else{
+            g.fillRect(wallLeft, 0, wallThickness, doorTop);
+            g.fillRect(wallLeft, doorBottom, wallThickness, maxy-doorBottom);
+        }
+
     }
 }
