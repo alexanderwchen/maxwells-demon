@@ -32,3 +32,9 @@ Desktop.ini
 
 # Illustrator Files
 *.ai
+
+# Idea Directory
+/.idea
+
+#Compiled Directory
+/out
