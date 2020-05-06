@@ -7,7 +7,7 @@ public class MaxwellsDemon extends JFrame implements ActionListener, MouseListen
 
     double deltat = .1; //  in seconds
     Timer timer;
-    double resolution = (double) (Toolkit.getDefaultToolkit().getScreenResolution() / 2.54);
+    double resolution = Toolkit.getDefaultToolkit().getScreenResolution() / 2.54;
 
     int maxx = 600;
     int maxy = 600;
@@ -120,8 +120,7 @@ public class MaxwellsDemon extends JFrame implements ActionListener, MouseListen
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == timer) {
-        }
+
         if (e.getSource() == addParticleButton) {
             System.out.println("add particle");
             mainArea.addParticle();
@@ -140,19 +139,15 @@ public class MaxwellsDemon extends JFrame implements ActionListener, MouseListen
         temperatureRight.setText("TEMPERATURE2: " + df.format(mainArea.getRightTemperature()));
         particlesLeft.setText(String.valueOf(mainArea.getLeftParticles()));
         particlesRight.setText(String.valueOf(mainArea.getRightParticles()));
-        super.paint(g);// takes too long
-/*
-        g.setColor( Color.WHITE ); // just white-out the window
-        int w = getWidth();  int h = getHeight();
-        g.fillRect( 0, 0, w, h );  // with a big rectangle
-
-*/
-        //for ( int i=0; i<particleCount; i++ ) { particles[i].drawMe(g); }
-
+        super.paint(g);
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {}
+    @Override
+    public void mouseEntered(MouseEvent e) {}
+    @Override
+    public void mouseExited(MouseEvent e) {}
 
     @Override
     public void mousePressed(MouseEvent e) {
@@ -165,12 +160,6 @@ public class MaxwellsDemon extends JFrame implements ActionListener, MouseListen
         mainArea.click();
         repaint();
     }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {}
-
-    @Override
-    public void mouseExited(MouseEvent e) {}
 }
 
 
