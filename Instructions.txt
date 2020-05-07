@@ -16,7 +16,7 @@ The game is simple to play. There are three actions you may make.
 3. Click and hold anywhere on the screen. This will open the door to allow particles to enter from one side ot another.
 
 ##Features
-TBD
+The game displays the scaled temperature (0-100) of each side of the game.
 
 ##Conclusion
 Enjoy the game!!
