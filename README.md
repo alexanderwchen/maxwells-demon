@@ -1,10 +1,14 @@
 # Maxwell's Demon Game
 
+- [About](#about)
 - [Setup](#setup)
 - [Description](#description)
 - [How to Play](#how-to-play)
 - [Features](#features)
-- [About](#about)
+
+## About
+- COSC 150 - Advanced Programming, Project 5 
+- Made by Alex Chen, May 2020
 
 ## Setup
 - This game contains three source code files "MaxwellsDemon.java", "MainPanel.java", "Particle.java".
@@ -39,7 +43,3 @@ The game is simple to play. There are three actions you may make.
 
 ## Features
 The game displays the scaled temperature (0-100) of each side of the game.
-
-## About
-- COSC 150 - Advanced Programming, Project 5 
-- Made by Alex Chen, May 2020
