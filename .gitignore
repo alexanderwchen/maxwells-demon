@@ -45,5 +45,6 @@ Desktop.ini
 #plantUML files
 *.plantuml
 
-#Instruction files
+#Miscellaneous files
+kinematics_notes.pdf
 Instructions.txt
