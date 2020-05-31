@@ -44,3 +44,6 @@ Desktop.ini
 
 #plantUML files
 *.plantuml
+
+#Instruction files
+Instructions.txt
